@@ -1,0 +1,61 @@
+
+import java.util.*;
+
+public class divide {
+	public static void main(String[] args) {
+		try {
+			divide.input();
+		} catch (Exception e) {
+			System.out.println("0으로는 연산이 불가능합니다. 0이 아닌수를 다시 입력해주세요");
+		}
+
+	}
+
+	public static void input() {
+		Scanner scan = new Scanner(System.in);
+		System.out.println("정수1을 정수2로 나누는 프로그램입니다.");
+		System.out.println("정수1을 입력해주세요:");
+		int a = scan.nextInt();
+		System.out.println("정수2을 입력해주세요:");
+		int b = scan.nextInt();
+
+		System.out.println("결과값 : " + (double) a / b);
+	}
+}
+
+
+import java.util.*;
+
+class NegativeNum extends Exception {
+	NegativeNum() {
+		super("음수 입력 불가능");
+	}
+}
+
+public class ExceptionTest {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		int[] arr = new int[3];
+		String[] str = { "국어", "수학", "영어" };
+		int sum = 0;
+		double avg;
+		try {
+			for (int i = 0; i < arr.length; i++) {
+				System.out.println(str[i] + "점수 입력");
+				int a = scan.nextInt();
+				if (a < 0) {
+					throw new NegativeNum();
+				} else {
+					arr[i] = a;
+				}
+			}
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		} finally {
+			for (int i = 0; i < arr.length; i++)
+				sum += arr[i];
+			avg = sum / arr.length;
+			System.out.println("평균점수 : " + avg);
+		}
+	}
+}

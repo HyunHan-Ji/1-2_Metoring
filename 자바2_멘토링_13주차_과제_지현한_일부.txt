@@ -1,0 +1,188 @@
+import java.util.*;
+
+public class ArrayListTest {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Random ran = new Random();
+
+		ArrayList<Integer> intarr = new ArrayList<>(
+				Arrays.asList(1, 2, 3, 5, 6));
+		ArrayList<Double> doarr = new ArrayList<>(Arrays.asList(1.2, 2.3, 4.7,
+				7.6));
+		ArrayList<String> strarr = new ArrayList<>(Arrays.asList("멘", "토", "링"));
+		ArrayList<Character> charr = new ArrayList<>(Arrays.asList('a', 'b',
+				'c'));
+
+		while (true) {
+			System.out
+					.println("1.Integer_arr 2.Double_arr 3.String_arr 4.Character_arr(0입력시 종료)");
+			int a = scan.nextInt();
+			if (a == 0) {
+				break;
+			}
+			switch (a) {
+			case 1:
+				System.out.println("정수형 배열에서 찾고싶은 숫자를 입력하세요.");
+				int num = scan.nextInt();
+				System.out.println(intarr.contains(num));
+				break;
+			case 2:
+				System.out.println("정수형 배열에서 찾고싶은 숫자를 입력하세요.");
+				double num2 = scan.nextDouble();
+				System.out.println(doarr.contains(num2));
+				break;
+			case 3:
+				System.out.println("문자열 배열에서 찾고싶은 숫자를 입력하세요.");
+				String str = scan.next();
+				System.out.println(strarr.contains(str));
+				break;
+			case 4:
+				System.out.println("문자 배열에서 찾고싶은 숫자를 입력하세요.");
+				char ch = scan.next().charAt(0);
+				System.out.println(charr.contains(ch));
+				break;
+			}
+		}
+	}
+}
+
+
+
+
+
+import java.util.*;
+
+public class ArrayLIstTest2 {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		ArrayList<Character> list = new ArrayList<>();
+		char[] charr;
+		while (true) {
+			System.out.println("List에 원하는 문자를 입력하세요:(Q또는q입력시 종료");
+			char ch = scan.next().charAt(0);
+			if (ch == 'q' || ch == 'Q') {
+				break;
+			}
+			list.add(ch);
+		}
+		charr = new char[list.size()];
+		Iterator e = list.iterator();
+		int i = 0;
+		while (e.hasNext()) {
+			charr[i] = (char) e.next();
+			System.out.print(charr[i]);
+			i++;
+
+		}
+		String reverse = "";
+		for (int j = charr.length - 1; j >= 0; j--) {
+			reverse += charr[j];
+		}
+		System.out.printf("을 역순 출력하면 %s입니다.", reverse);
+	}
+}
+
+
+
+import java.util.*;
+
+public class SetTest {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		Set<String> set = new TreeSet<>();
+		while (true) {
+			System.out.println("저장하실 파일명을 입력하세요 : (quit를 입력하면 종료됩니다.)");
+			String str = scan.next();
+			if (str.equals("quit")) {
+				break;
+			}
+			if (!set.add(str)) {
+				System.out.println("중복되는 파일명이 존재합니다. 파일명을 다시 입력해주세요.");
+				continue;
+			}
+			set.add(str);
+		}
+		Iterator e = set.iterator();
+		System.out.println("=====컴퓨터에 저장된 파일=====");
+		while (e.hasNext()) {
+			System.out.println(e.next());
+		}
+	}
+}
+
+
+
+
+
+
+import java.util.*;
+
+class Client {
+	Scanner scan = new Scanner(System.in);
+	private int pay;
+	private String name;
+	private int temp;
+
+	public String getName() {
+		return name;
+	}
+
+	LinkedList<Client> list = new LinkedList<>();
+
+	Client(String name, LinkedList<Client> list) {
+		this.list = list;
+		this.name = name;
+	}
+
+	public void insert(int i) {
+		System.out.println("입금하실 금액을 넣어주세요");
+		int a = scan.nextInt();
+		temp += list.get(i).pay;
+		list.get(i).pay += a;
+	}
+
+	public void withdraw(int i) {
+		System.out.println("출금하실 금액을 넣어주세요");
+		int a = scan.nextInt();
+		if (a > pay) {
+			System.out.println("잔액이 부족합니다.");
+		} else {
+			list.get(i).pay -= a;
+			System.out.println(a + "원이 출금되었습니다.");
+		}
+	}
+
+	public void search(int i) {
+		System.out.println(list.get(i).pay);
+	}
+}
+
+public class LinkedListTest {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+		LinkedList<Client> list = new LinkedList<>();
+		int i = 0;
+		String name = null;
+		while (true) {
+			System.out.println("어서오세요.인규모바일뱅크 입니다.");
+			System.out.println("회원가입을 하셔야만 서비스 이용 가능합니다.");
+			System.out.println("1.서비스이용 2.회원가입 3.종료");
+			int a = scan.nextInt();
+			if (a == 3) {
+				break;
+			}
+			switch (a) {
+			case 1:
+				System.out.println("원하시는 메뉴를 선택해주세요.");
+				System.out.println("1.입금 2.출금 3.예금 조회");
+				int b = scan.nextInt();
+				switch (b) {
+				case 1:
+					System.out.println("예금주를 입력하세요");
+					name = scan.next();
+				}
+			}
+		}
+	}
+}
+

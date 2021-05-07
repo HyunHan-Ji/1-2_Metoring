@@ -1,0 +1,411 @@
+1번 문제
+MembershipJoin {// 회원가입
+	private String Account;// Id
+	private String name;// 이름
+	private String Live;// 사는곳
+	private String Password;// 비번
+	private int Born_year; // 생년
+	private static int count = 0;// 전체 회원수
+
+	MembershipJoin(String Account, String name, String Live, String Password, int Born_year) {
+		this.Account = Account;
+		this.name = name;
+		this.Live = Live;
+		this.Password = Password;
+		this.Born_year = Born_year;
+
+		count++;
+	}
+	MembershipJoin(){
+		
+	}
+
+	public String getAccount() {
+		return Account;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public String getLive() {
+		return Live;
+	}
+
+	public String getPassword() {
+		return Password;
+	}
+
+	public int getBorn_year() {
+		return Born_year;
+	}
+
+	public static int getCount() {
+		return count;
+	}
+}
+
+import java.util.*;
+
+public class PcManager {// PC방 class
+	private MembershipJoin MJ[];// 회원가입 객체배열
+	private String Pcname = "Root";// 관리자 ID
+	private String Pcpassword = "1234";// 관리자비번
+	private int time;// 시간
+	Scanner scan = new Scanner(System.in);
+
+	PcManager(MembershipJoin[] MJ, int time) {
+		this.MJ = MJ;
+		this.time = time;
+	}
+
+	PcManager() {
+
+	}
+
+	public boolean Login(String Account, String password) {
+		int i;
+		for (i = 0; i < this.MJ.length; i++) {
+			if (MJ[i].getAccount().equals(Account)) {
+				break;
+			}
+		}
+		if (i == MJ.length) {
+			System.out.println("입력하신 아이디는 존재하지 않습니다. 이전단계로 가갑니다");
+			return false;
+		} else if (!MJ[i].getPassword().equals(password)) {
+			System.out.println("입력하신 비밀번호가 다릅니다. 이전단계로 갑니다");
+			return false;
+		} else if (this.time >= 22 || this.time <= 8) {
+			if (!Pcplay(MJ[i])) {
+				System.out.println("밤 10시 ~새벽8시 사이는 청소년 출입 금지입니다. 이전단계로 갑니다. ");
+				return false;
+			}
+		}
+		System.out.println(this.MJ[i].getName() + "님 로그인 성공하셨습니다. 즐거운 시간 되세요");
+		return true;
+
+	}
+
+	public boolean Pcplay(MembershipJoin per) {// 미성년자 체크
+		if (per.getBorn_year() >= 98) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public void Pass(String Account, String Name) {// 비밀번호 찾기
+		int i;
+		for (i = 0; i < MJ.length; i++) {
+			if (MJ[i].getAccount().equals(Account)) {
+				break;
+			}
+		}
+		if (i == MJ.length) {
+			System.out.println("입력하신 아이디는 존재하지 않습니다. 이전단계로 갑니다.");
+			return;
+		} else if (MJ[i].getName().equals(Name)) {
+			System.out.println("입력하신 아이디 " + Name + "의 비밀번호는");
+			System.out.println(MJ[i].getPassword() + "입니다.");
+		} else {
+			System.out.println("입력하신 아이디가 없거나 이름과 일치하지 않습니다.");
+		}
+		return;
+	}
+
+	public void PcM() {
+		System.out.println("1.모든회원정보 2.종료");
+		int n = scan.nextInt();
+		while (true) {
+			switch (n) {
+			case 1:
+				this.Info();
+				break;
+			default:
+				return;
+			}
+		}
+	}
+
+	public void Info() {
+		System.out.println("총회원수 : " + MembershipJoin.getCount());
+		for (int i = 0; i < MembershipJoin.getCount(); i++) {
+			System.out.println("       ID : " + MJ[i].getAccount());
+			System.out.println("  assword : " + MJ[i].getPassword());
+			System.out.println("     Name : " + MJ[i].getName());
+			System.out.println("     Live : " + MJ[i].getLive());
+			System.out.println("Born_year : " + MJ[i].getBorn_year());
+			System.out.println("-----------------------------------------");
+		}
+	}
+
+	public String getPcname() {
+		return Pcname;
+	}
+
+	public String getPcpassword() {
+		return Pcpassword;
+	}
+
+}
+
+
+2번 문제
+public class CGV {//CGV 클래스
+	private Client[] c;// 고객수 전체 배열
+	private static int Co_ke = 20;// CGV에 남아있는 콜라 개수
+	private static int Pop_corn = 20;// CGV에 남아있는 팝콘개수
+	public final int Coke_Price = 1000; // 콜라 가격
+	public final int Popcorn_Price = 2000; // 팝콘 가격
+
+	CGV(Client[] c) {
+		this.c = c;
+	}
+
+	CGV() {
+	}
+
+	public int SearchPerson(String name) {//이름찾기
+		for (int i = 0; i < c.length; i++) {//찾으면 i값 리턴, 없으면 -1리턴
+			if (c[i].getName().equals(name)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+
+	public boolean Empty(int num, int select) {//재고확인
+		switch (num) {//1.콜라 2.팝콘
+		case 1://콜라
+			if (select > CGV.Co_ke) {//콜라가 재고보다 구매개수가 큰경우
+				System.out.println("재고부족");
+				return false;
+			}
+		case 2://팝콘
+			if (select > CGV.Pop_corn) {//팝콘이 재고보다 구매개수가 큰경우
+				System.out.println("재고부족");
+				return false;
+			}
+		}
+		return true;
+	}
+
+	public void Sell(int index, int num, int select) {
+		if (!this.Empty(num, select)) {//선택한 메뉴의 재고확인
+			return;
+		}
+		switch (num) {//1.콜라 2.팝콘
+		case 1:
+			if (c[index].getPrice() >= Coke_Price * select) {//수중금액으로 살 수있을때
+				c[index].setCoke(c[index].getCoke() + select);//구매자의 콜라구매개수 변경
+				c[index].setPrice(c[index].getPrice() - Coke_Price * select);//구매자의 수중금액 변경
+				Co_ke -= select;//재고 변경
+			} else {
+				System.out.println("금액이 부족합니다");
+			}
+			break;
+		case 2:
+			if (c[index].getPrice() >= Popcorn_Price * select) {//콜라와 동일
+				c[index].setPopcorn(c[index].getPopcorn() + select);
+				c[index].setPrice(c[index].getPrice() - Popcorn_Price * select);
+				Pop_corn -= select;
+			} else {
+				System.out.println("금액이 부족합니다");
+			}
+			break;
+		}
+	}
+
+	public void The_number() {//재고와 고객수 출력
+		System.out.println("남아있는 콜라:" + Co_ke);
+		System.out.println("남아있는 팝콘" + Pop_corn);
+		System.out.println("고객수 : " + c.length);
+	}
+
+	public void info(int index) {// c[index]의 모든 정보 출력
+		System.out.println("주문자 이름 : " + c[index].getName());
+		System.out.println("콜라 구매 개수 : " + c[index].getCoke());
+		System.out.println("팝콘 구매 개수 : " + c[index].getPopcorn());
+		System.out.println("수중 금액 : " + c[index].getPrice());
+	}
+
+	public static int getCo_ke() {
+		return Co_ke;
+	}
+
+	public static int getPop_corn() {
+		return Pop_corn;
+	}
+}
+public class Client {//손님 클래스
+	private String name;//주문자 이름
+	
+	private int Coke;//콜라 구매 개수
+	private int Popcorn;//팝콘 구매개수
+	private int price;//수중 금액
+	
+	Client(){}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public int getCoke() {
+		return Coke;
+	}
+
+	public void setCoke(int coke) {
+		Coke = coke;
+	}
+
+	public int getPopcorn() {
+		return Popcorn;
+	}
+
+	public void setPopcorn(int popcorn) {
+		Popcorn = popcorn;
+	}
+
+	public int getPrice() {
+		return price;
+	}
+
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	
+	
+}
+
+
+
+3번문제
+public class Shape {//도형 부모클래스
+	private int width;// 밑변 또는 가로
+	private int height;// 높이 또는 세로
+	private int radius;// 반지름
+	final double pi = 3.14;
+
+	void print() {
+		System.out.println("도형 입니다.");
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getHeight() {
+		return height;
+	}
+
+	public void setHeight(int height) {
+		this.height = height;
+	}
+
+	public int getRadius() {
+		return radius;
+	}
+
+	public void setRadius(int radius) {
+		this.radius = radius;
+	}
+	public double getPi() {
+		return pi;
+	}
+
+}
+public class Rectangle extends Shape {//사각형
+	Rectangle(int width, int height) {
+		super.setWidth(width);
+		super.setHeight(height);
+	}
+
+	Rectangle() {
+	}
+
+	void print() {
+		System.out.println("사각형입니다.");
+		super.print();
+	}
+
+	int Area() {
+		return super.getWidth() * super.getHeight();
+	}
+}
+public class Triangle extends Shape {//삼각형
+	Triangle(int width, int height) {
+		super.setWidth(width);
+		super.setHeight(height);
+	}
+
+	Triangle() {
+	}
+
+	void print() {
+		System.out.println("삼각형입니다.");
+		super.print();
+	}
+
+	double Area() {
+		return super.getWidth() * super.getHeight() / 2;
+	}
+}
+
+public class Circle extends Shape {//원
+	Circle(int radius) {
+		super.setRadius(radius);
+
+	}
+
+	Circle() {
+	}
+
+	void print() {
+		System.out.println("원형 입니다.");
+		super.print();
+	}
+
+	double Area() {
+		return super.getRadius() * super.getRadius() * pi;
+	}
+}
+import java.util.*;
+
+public class ShapeTest {
+	public static void main(String[] args) {
+		Scanner scan = new Scanner(System.in);
+
+		System.out.println("사각형 가로 길이 입력");
+		int a = scan.nextInt();
+		System.out.println("사각형 세로 길이 입력");
+		int b = scan.nextInt();
+		Rectangle RA = new Rectangle(a, b);
+
+		System.out.println("삼각형 밑변 길이 입력");
+		int c = scan.nextInt();
+		System.out.println("삼각형 높이 길이 입력");
+		int d = scan.nextInt();
+		Triangle TA = new Triangle(c, d);
+
+		System.out.println("원의 반지름 입력");
+		int e = scan.nextInt();
+		Circle Cc = new Circle(e);
+
+		System.out.println("가로 : " + a + " 세로 : " + b + "인 사각형의 넓이는 " + RA.Area() + "입니다.");
+		System.out.println("\n밑변 : " + c + " 높이 : " + d + "인 삼각형의 넓이는 " + TA.Area() + "입니다.");
+		System.out.println("\n반지름 : " + e + " 인 원의 넓이는" + Cc.Area() + "입니다.");
+
+		RA.print();
+		TA.print();
+		Cc.print();
+	}
+}

@@ -1,0 +1,188 @@
+import java.util.*;
+
+public class e5 {
+	public static void main(String[] args) {
+		int in = 0;
+		int arr[] = new int[5];
+		Scanner scan = new Scanner(System.in);
+
+		for (int i = 0; i < arr.length; i++) {
+			System.out.print("정수 입력");
+			arr[i] = scan.nextInt();
+		}
+		for (int i = 0; i < arr.length; i++) {
+			System.out.printf("%d에 들어있는 정수 값은 %d 입니다.\n", i, arr[i]);
+		}
+		System.out.println();
+		for (int a : arr) {
+			System.out.printf("%d에 들어있는 정수 값은 %d 입니다.\n", in++, a);
+		}
+	}
+}
+
+
+public class Random {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] arr = new int[4];
+
+		arr[0] = (int) (Math.random() * 11 + 5);
+		arr[1] = (int) (Math.random() * 45 + 20);
+		arr[2] = (int) (Math.random() * 31 + 2);
+		arr[3] = (int) (Math.random() * 25 + 52);
+
+		for (int i : arr) {
+			System.out.println(i);
+		}
+	}
+
+}
+
+import java.util.*;
+
+public class Str {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+
+		while (true) {
+			int cnt = 0;
+			System.out.println("문자열 입력(단, quit 입력시 종료)");
+			String st = scan.next();
+			if (st.equalsIgnoreCase("quit")) {
+				System.out.println("프로그램이 종료됩니다");
+				break;
+			} else {
+				for (int i = 0; i < st.length(); i++) {
+					char ch = st.charAt(i);
+					if (ch >= 'A' && ch <= 'Z') {
+						cnt++;
+					}
+				}
+				System.out
+						.println("입력한 문자" + st + "에서 대문자는 " + cnt + "개 있습니다.");
+			}
+
+		}
+	}
+
+}
+
+
+public class name {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		String[] s = { "NickKim", "MacKim", "Sally", "KimLee", "Henry",
+				"HKwipweKim" };
+		int cnt = 0;
+		for (int i = 0; i < s.length; i++) {
+			for (int j = 0; j < s[i].length() - 2; j++) {
+				if (s[i].substring(j, j + 3).equalsIgnoreCase("kim")) {
+					System.out.println(s[i]);
+					cnt++;
+				}
+			}
+		}
+		System.out.println("문자열 배열에서 대소문자 구별없이 [KIM]이 있는 문자열의 개수는 " + cnt
+				+ "개 입니다");
+	}
+
+}
+
+
+
+import java.util.*;
+
+public class Hexadecimal {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		String num[] = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A",
+				"B", "C", "D", "E", "F" };
+		String str = "";
+		String rvstr = "";
+
+		while (true) {
+			System.out.println("10진수를 입력하세요 (단, -1입력시 종료)");
+			int in = scan.nextInt();
+			if (in == -1) {
+				System.out.println("프로그램 종료");
+				break;
+			}
+			while (in != 0) {
+				str += num[in % 16];
+				in /= 16;
+			}
+			for (int i = str.length() - 1; i >= 0; i--) {
+				rvstr += str.charAt(i);
+			}
+
+			System.out.println("10진수 [" + in + "] 을 16진수로 변환하면 [0x" + rvstr
+					+ "] 입니다.");
+
+		}
+	}
+
+}
+
+
+import java.util.*;
+
+public class Movie {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		String[][] arr = new String[5][5];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = "O";
+			}
+		}
+
+		while (true) {
+			System.out.println("===================");
+			System.out.println("1.좌석형황 보기");
+			System.out.println("2.예매 하기");
+			System.out.println("3.예매 서비스 종료하기");
+			System.out.println("===================");
+			int a = scan.nextInt();
+			if (a == 1) {
+				for (int i = 0; i < arr.length; i++) {
+					System.out.print("	" + (i + 1) + "행");
+				}
+				System.out.println();
+				for (int i = 0; i < arr.length; i++) {
+					System.out.print((i + 1) + "열	 ");
+					for (int j = 0; j < arr[i].length; j++) {
+						System.out.print(arr[i][j] + "	");
+					}
+					System.out.println();
+				}
+			} else if (a == 2) {
+				System.out.println("예매할 좌석의 행을 입력하세요");
+				int i = scan.nextInt();
+				System.out.println("예매할 좌석의 열을 입력하세요");
+				int j = scan.nextInt();
+				if (arr[i - 1][j - 1].equals("O")) {
+					arr[i - 1][j - 1] = "X";
+					System.out.println("예약되었습니다");
+				} else {
+					System.out.println("이미 예약된 자리입니다");
+				}
+			} else if (a == 3) {
+				System.out.println("프로그램이 종료됩니다");
+				break;
+			} else {
+				System.out.println("잘못입력하셨습니다.");
+			}
+
+		}
+	}
+
+}
+

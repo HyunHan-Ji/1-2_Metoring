@@ -1,0 +1,206 @@
+public class Numarr {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[][] arr = new int[5][5];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = (int) (Math.random() * 10);
+			}
+		}
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				System.out.print(arr[i][j]+" ");
+			}System.out.println();
+		}
+	}
+}
+
+public class Numarr2 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[][] arr = new int[3][];
+		arr[0]=new int[1];
+		arr[1]=new int[2];
+		arr[2]=new int[3];
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				arr[i][j] = (int) (Math.random() * 10);
+			}
+		}
+		for (int i = 0; i < arr.length; i++) {
+			for (int j = 0; j < arr[i].length; j++) {
+				System.out.print(arr[i][j]+" ");
+			}System.out.println();
+		}
+	}
+}
+
+
+
+
+
+public class CarTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+		Car c1 = new Car();
+		Car c2 = new Car();
+
+		c1.setName("람보르기니");
+		c1.setColor("주황");
+
+		c2.setName("둥글레차");
+		c2.setColor("둥글레");
+
+		System.out.printf("차종 : %s\n", c1.getName());
+		System.out.printf("차 색상: %s\n", c1.getColor());
+		System.out.println("---------------------");
+		System.out.printf("차종 : %s\n", c2.getName());
+		System.out.printf("차 색상: %s\n", c2.getColor());
+	}
+
+}
+public class Car {
+	private String name;
+	private String color;
+	
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+}
+
+
+public class Time {
+
+	int hour;
+
+	public int min() {
+		return hour * 60;
+
+	}
+
+	public int sec() {
+		return hour * 60 * 60;
+	}
+}
+
+
+import java.util.*;
+
+public class TimeTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		Time c = new Time();
+		Time c2 = new Time();
+		
+		System.out.println("c객체의 시간 입력");
+		c.hour=scan.nextInt();
+		System.out.println("c2객체의 시간 입력");
+		c2.hour=scan.nextInt();
+		
+		System.out.printf("%d시간을 분으로 나타내면 %d분\n",c.hour,c.min());
+		System.out.printf("%d시간을 초로 나타내면 %d초\n",c.hour,c.sec());
+		System.out.printf("%d시간을 분으로 나타내면 %d분\n",c2.hour,c2.min());
+		System.out.printf("%d시간을 초로 나타내면 %d초\n",c2.hour,c2.sec());
+	}
+
+}
+
+
+
+public class NameSearch {
+	String name[];
+
+	public int search(String n) {
+		for (int i = 0; i < name.length; i++) {
+			if (name[i].equalsIgnoreCase(n)) {
+				return i;
+			}
+		}
+		return -1;
+	}
+}
+
+
+import java.util.*;
+
+public class NameSearchTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		NameSearch ns = new NameSearch();
+		String namevalue[] = { "James", "Micael", "Jhon", "Porter", "OnebinJoosang" };
+		ns.name = namevalue;
+		System.out.println("찿고싶은 이름");
+		int num = ns.search(scan.next());
+		if (num == -1) {
+			System.out.println("찾는이름이 존재하지 않습니다");
+		} else {
+			System.out.println("찾은 이름은 " + num + "번째에 있습니다.");
+		}
+	}
+}
+
+
+public class Average {
+	public int Student_score[];
+	public int hap = 0;
+	public double average;
+
+	public void hap_score() {
+		for (int i = 0; i < Student_score.length; i++) {
+			hap += Student_score[i];
+		}
+		average = hap / Student_score.length;
+	}
+
+	public void under_score() {
+		for (int i = 0; i < Student_score.length; i++) {
+			if (Student_score[i] < average) {
+				System.out.println(i + 1 + "번째 학생 점수 : " + Student_score[i]);
+			}
+		}
+	}
+}
+
+
+import java.util.*;
+
+public class AverageTest {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		Scanner scan = new Scanner(System.in);
+		Average ar = new Average();
+
+		int arr[] = new int[10];
+		for (int i = 0; i < arr.length; i++) {
+			System.out.println(i + 1 + "번째 학생 점수 입력");
+			arr[i] = scan.nextInt();
+		}
+		ar.Student_score = arr;
+		ar.hap_score();
+		System.out.println("전체 학생수 : " + arr.length);
+		System.out.println("전체 학생 총 점수 : " + ar.hap);
+		System.out.println("전체 학생 평균 점수 : " + ar.average);
+		System.out.println("평군 점수 보다 낮은 점수 맞은 학생");
+		ar.under_score();
+	}
+
+}
